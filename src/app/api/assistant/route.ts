@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/auth";
 import type { AssistantPayload, AssistantError } from "@/types/assistant";
 import { fetchAssistantReply, assertOpenAIKey } from "@/services/openai";
 
 export async function POST(request: Request) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  }
+
   const missingKeyError = assertOpenAIKey();
   if (missingKeyError) {
     return NextResponse.json(missingKeyError, { status: 500 });
