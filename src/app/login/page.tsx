@@ -1,8 +1,16 @@
 import { GoogleAuthButton } from "@/components/auth/google-auth-button";
 import Link from "next/link";
 import { ProjectName } from "@/components/ui/project-name";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await getServerSession(authOptions);
+  if (session) {
+    redirect("/assistant");
+  }
+
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,#ecfeff,#f8fafc_45%,#ffffff)] text-slate-900">
       <main className="mx-auto flex min-h-screen w-full max-w-3xl flex-col justify-center gap-10 px-6 py-16 lg:px-12">
