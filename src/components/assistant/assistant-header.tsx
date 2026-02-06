@@ -36,13 +36,12 @@ export default function AssistantHeader({
               key={suggestion}
               type="button"
               onClick={() => onGoalSelect(suggestion)}
-              className={`rounded-full border px-4 py-2 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${
-                goal === suggestion
-                  ? "border-emerald-500 bg-emerald-50 text-emerald-700"
-                  : "border-slate-200 bg-white text-slate-600 hover:border-emerald-300"
-              }`}
+              className={`rounded-full px-4 py-2 text-sm transition cursor-pointer focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500 border ${goal === suggestion
+                ? "border-emerald-500 bg-emerald-50 text-emerald-700"
+                : "border-slate-200 bg-white text-slate-600 hover:border-emerald-300"
+                }`}
             >
-              {suggestion}
+              {suggestion} ai
             </button>
           ))}
         </div>

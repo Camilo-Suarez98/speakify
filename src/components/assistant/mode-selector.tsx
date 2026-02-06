@@ -17,11 +17,10 @@ export default function ModeSelector({
       {options.map((option) => (
         <label
           key={option.id}
-          className={`flex cursor-pointer flex-col gap-2 rounded-2xl border p-4 transition focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-emerald-500 ${
-            value === option.id
-              ? "border-emerald-500 bg-emerald-50"
-              : "border-slate-200 bg-white hover:border-emerald-300"
-          }`}
+          className={`flex flex-col gap-2 rounded-2xl border p-4 transition focus-within:outline focus-within:outline-offset-2 focus-within:outline-emerald-500 ${value === option.id
+            ? "border-emerald-500 bg-emerald-50"
+            : "border-slate-200 bg-white hover:border-emerald-300"
+            }`}
         >
           <div className="flex items-start justify-between gap-4">
             <div>

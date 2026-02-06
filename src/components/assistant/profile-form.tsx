@@ -30,7 +30,7 @@ export default function ProfileForm({
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               onTargetLanguageChange(event.target.value)
             }
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
             placeholder="Ej. Ingles, Portugues, Frances"
           />
         </label>
@@ -41,7 +41,7 @@ export default function ProfileForm({
             onChange={(event: ChangeEvent<HTMLSelectElement>) =>
               onLevelChange(event.target.value)
             }
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
           >
             <option>Principiante</option>
             <option>Intermedio</option>
@@ -55,7 +55,7 @@ export default function ProfileForm({
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               onGoalChange(event.target.value)
             }
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
             placeholder="Describe tu meta principal"
           />
         </label>
