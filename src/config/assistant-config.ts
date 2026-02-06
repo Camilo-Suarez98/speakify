@@ -36,5 +36,18 @@ export const GOAL_SUGGESTIONS = [
 ];
 
 export const DEFAULT_MODE: AssistantMode = "conversation";
-export const DEFAULT_LANGUAGE = "Ingles";
 export const DEFAULT_LEVEL = "Intermedio";
+export const DEFAULT_LANGUAGE = "Ingles";
+
+export const LANGUAGE_OPTIONS = [
+  { id: "spanish", label: "Español" },
+  { id: "english", label: "Ingles" },
+  { id: "german", label: "Aleman" },
+  { id: "french", label: " Frances" },
+  { id: "italian", label: "Italiano" },
+  { id: "portuguese", label: "Portugues" },
+  { id: "chinese", label: "Chino" },
+  { id: "japanese", label: "Japones" },
+  { id: "korean", label: "Coreano" },
+  { id: "arabic", label: "Arabe" },
+];

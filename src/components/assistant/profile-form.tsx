@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react";
+import { LANGUAGE_OPTIONS } from "@/config/assistant-config";
 
 type ProfileFormProps = {
   targetLanguage: string;
@@ -25,14 +26,19 @@ export default function ProfileForm({
       <form className="mt-5 grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-2 text-sm text-slate-600">
           Idioma objetivo
-          <input
+          <select
             value={targetLanguage}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            onChange={(event: ChangeEvent<HTMLSelectElement>) =>
               onTargetLanguageChange(event.target.value)
             }
             className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-            placeholder="Ej. Ingles, Portugues, Frances"
-          />
+          >
+            {LANGUAGE_OPTIONS.map((option) => (
+              <option key={option.id} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </label>
         <label className="flex flex-col gap-2 text-sm text-slate-600">
           Nivel actual
