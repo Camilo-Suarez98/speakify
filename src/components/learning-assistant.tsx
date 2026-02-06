@@ -101,7 +101,7 @@ export default function LearningAssistant() {
         activeMode={activeMode}
       />
 
-      <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
         <section className="flex flex-col gap-8">
           <div>
             <h2 className="text-2xl font-semibold text-slate-900">
