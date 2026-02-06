@@ -32,7 +32,7 @@ export default function ChatPanel({
       </div>
 
       <div
-        className="flex min-h-[320px] flex-col gap-4 rounded-2xl bg-slate-50 p-4"
+        className="flex min-h-[320px] flex-col gap-4 rounded-2xl bg-slate-50 p-4 overflow-y-scroll max-h-[60vh]"
         aria-live="polite"
       >
         {messages.map((message, index) => (
@@ -70,7 +70,7 @@ export default function ChatPanel({
         <button
           type="submit"
           disabled={!canSend}
-          className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+          className="inline-flex items-center justify-center rounded-full bg-emerald-400 cursor-pointer px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-slate-300"
         >
           {isLoading ? "Generando..." : "Enviar"}
         </button>
