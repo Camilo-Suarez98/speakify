@@ -1,5 +1,6 @@
 import FeatureGrid from "@/components/assistant/feature-grid";
 import Link from "next/link";
+import { ProjectName } from "@/components/ui/project-name";
 
 export default function Home() {
   return (
@@ -7,9 +8,7 @@ export default function Home() {
       <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-16 px-6 pb-24 pt-16 lg:px-12">
         <header className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="flex flex-col gap-6">
-            <p className="text-base font-semibold uppercase tracking-[0.3em] text-emerald-600">
-              Speakify
-            </p>
+            <ProjectName />
             <h1 className="text-balance text-4xl font-semibold text-slate-900 sm:text-5xl">
               Aprende idiomas con una IA que adapta cada conversacion a tu
               ritmo.
@@ -21,13 +20,13 @@ export default function Home() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/login"
-                className="rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                className="rounded-full bg-emerald-400 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
               >
                 Iniciar sesion
               </Link>
               <Link
                 href="/login"
-                className="rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-300 hover:text-emerald-700 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                className="rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-800 hover:text-emerald-800 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
               >
                 Probar el chat
               </Link>

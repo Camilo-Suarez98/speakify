@@ -1,4 +1,4 @@
-import NextAuth, { type NextAuthOptions, getServerSession } from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
@@ -16,7 +16,5 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
 };
-
-export const auth = () => getServerSession(authOptions);
 
 export const handler = NextAuth(authOptions);

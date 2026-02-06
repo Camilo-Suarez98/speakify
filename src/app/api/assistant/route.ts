@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { authOptions } from "@/auth";
+import { getServerSession } from "next-auth/next";
 import type { AssistantPayload, AssistantError } from "@/types/assistant";
 import { fetchAssistantReply, assertOpenAIKey } from "@/services/openai";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export async function POST(request: Request) {
-  const session = await auth();
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 });
   }

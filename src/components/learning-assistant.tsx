@@ -42,6 +42,7 @@ export default function LearningAssistant() {
   );
 
   const canSend = input.trim().length > 0 && !isLoading;
+  console.log(canSend);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -1,11 +1,14 @@
-import { auth } from "@/auth";
-import LearningAssistant from "@/components/learning-assistant";
 import AuthHeader from "@/components/assistant/auth-header";
+import LearningAssistant from "@/components/learning-assistant";
+import { authOptions } from "@/auth";
+import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 
-export default async function AssistantPage() {
-  const session = await auth();
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
+export default async function AssistantPage() {
+  const session = await getServerSession(authOptions);
   if (!session?.user) {
     redirect("/login");
   }

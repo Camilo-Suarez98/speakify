@@ -1,4 +1,5 @@
 import type { ModeOption } from "@/types/assistant";
+import { ProjectName } from "../ui/project-name";
 
 type AssistantHeaderProps = {
   goalSuggestions: string[];
@@ -20,9 +21,7 @@ export default function AssistantHeader({
   return (
     <header className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex max-w-2xl flex-col gap-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600">
-          Speakify
-        </p>
+        <ProjectName />
         <h1 className="text-balance text-4xl font-semibold text-slate-900 sm:text-5xl">
           Crea tu ruta de aprendizaje de idiomas con una IA cercana y efectiva.
         </h1>
@@ -41,7 +40,7 @@ export default function AssistantHeader({
                 : "border-slate-200 bg-white text-slate-600 hover:border-emerald-300"
                 }`}
             >
-              {suggestion} ai
+              {suggestion}
             </button>
           ))}
         </div>

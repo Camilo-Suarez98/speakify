@@ -38,11 +38,10 @@ export default function ChatPanel({
         {messages.map((message, index) => (
           <div
             key={`${message.role}-${index}`}
-            className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6 ${
-              message.role === "assistant"
-                ? "bg-white text-slate-700 shadow"
-                : "self-end bg-emerald-600 text-white"
-            }`}
+            className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6 ${message.role === "assistant"
+              ? "bg-white text-slate-700 shadow"
+              : "self-end bg-emerald-400 text-white"
+              }`}
           >
             {message.content}
           </div>
@@ -61,7 +60,7 @@ export default function ChatPanel({
           onChange={(event) => onInputChange(event.target.value)}
           rows={4}
           placeholder="Quiero practicar conversaciones para pedir comida en un restaurante..."
-          className="resize-none rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+          className="resize-none rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
         />
         {error ? (
           <p className="text-sm text-rose-600" role="alert">
