@@ -24,12 +24,6 @@ export default function Home() {
               >
                 Iniciar sesion
               </Link>
-              <Link
-                href="/login"
-                className="rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-800 hover:text-emerald-800 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-              >
-                Probar el chat
-              </Link>
             </div>
           </div>
           <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.6)]">
