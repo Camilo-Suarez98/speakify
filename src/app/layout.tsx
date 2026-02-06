@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     "gramatica",
     "estudio de idiomas"
   ],
+  icons: {
+    icon: "/favicon.png",
+  },
   openGraph: {
     title: "Speakify | Asistente de aprendizaje de idiomas",
     description:
