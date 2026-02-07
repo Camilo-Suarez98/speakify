@@ -22,12 +22,6 @@ export default function AuthHeader({ displayName }: AuthHeaderProps) {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <Link
-            href="/"
-            className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-emerald-800 hover:text-emerald-800 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-          >
-            Inicio
-          </Link>
           <button
             type="button"
             onClick={() => signOut({ callbackUrl: "/login" })}
@@ -39,4 +33,4 @@ export default function AuthHeader({ displayName }: AuthHeaderProps) {
       </div>
     </header>
   );
-}
+};
