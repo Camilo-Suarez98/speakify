@@ -45,7 +45,44 @@ export default function Home() {
         </header>
 
         <FeatureGrid />
+
+        <section
+          aria-labelledby="pqr"
+          className="grid gap-8 rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.5)] lg:grid-cols-[1.1fr_0.9fr]"
+        >
+          <div className="flex flex-col gap-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">
+              PQR del curso
+            </p>
+            <h2
+              id="pqr"
+              className="text-balance text-3xl font-semibold text-slate-900"
+            >
+              Preguntas, quejas o reclamos con respuesta profesional.
+            </h2>
+            <p className="text-base text-slate-600">
+              Somos un equipo dedicado a ofrecer una experiencia de aprendizaje
+              confiable y cercana. Si tienes dudas sobre el curso, reportes o
+              sugerencias de mejora, aqui centralizamos la atencion para
+              responder con claridad y rapidez.
+            </p>
+          </div>
+          <div className="flex flex-col gap-4 rounded-2xl border border-emerald-100 bg-emerald-50 p-6 text-sm text-slate-700">
+            <p className="text-sm font-semibold text-slate-900">
+              Canales de atencion
+            </p>
+            <ul className="flex list-disc flex-col gap-3 pl-5">
+              <li>Respuestas en menos de 24 horas habiles.</li>
+              <li>Seguimiento personalizado por correo o chat.</li>
+              <li>Registro claro de cada solicitud.</li>
+            </ul>
+            <p>
+              Escribenos y describe tu caso con el mayor detalle posible para
+              darte una solucion precisa.
+            </p>
+          </div>
+        </section>
       </main>
     </div>
   );
-}
+};
