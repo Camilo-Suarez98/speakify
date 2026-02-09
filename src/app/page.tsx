@@ -112,7 +112,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section
+        {/* <section
           aria-labelledby="contacto"
           className="grid gap-8 rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.5)] lg:grid-cols-[1.1fr_0.9fr]"
         >
@@ -132,8 +132,8 @@ export default function Home() {
             </p>
           </div>
           <ContactForm />
-        </section>
+      </section> */}
       </main>
-    </div>
+    </div >
   );
 };
