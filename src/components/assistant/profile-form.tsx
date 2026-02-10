@@ -4,19 +4,15 @@ import { LANGUAGE_OPTIONS } from "@/config/assistant-config";
 type ProfileFormProps = {
   targetLanguage: string;
   level: string;
-  goal: string;
   onTargetLanguageChange: (value: string) => void;
   onLevelChange: (value: string) => void;
-  onGoalChange: (value: string) => void;
 };
 
 export default function ProfileForm({
   targetLanguage,
   level,
-  goal,
   onTargetLanguageChange,
   onLevelChange,
-  onGoalChange,
 }: ProfileFormProps) {
   return (
     <div className="rounded-3xl border border-slate-200 bg-white p-6">
@@ -54,18 +50,7 @@ export default function ProfileForm({
             <option>Avanzado</option>
           </select>
         </label>
-        <label className="sm:col-span-2 flex flex-col gap-2 text-sm text-slate-600">
-          Objetivo
-          <input
-            value={goal}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              onGoalChange(event.target.value)
-            }
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
-            placeholder="Describe tu meta principal"
-          />
-        </label>
       </form>
     </div>
   );
-}
+};

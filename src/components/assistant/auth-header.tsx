@@ -24,7 +24,7 @@ export default function AuthHeader({ displayName }: AuthHeaderProps) {
         <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
-            onClick={() => signOut({ callbackUrl: "/login" })}
+            onClick={() => signOut({ callbackUrl: "/" })}
             className="cursor-pointer rounded-full bg-emerald-400 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
           >
             Cerrar sesion

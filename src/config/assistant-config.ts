@@ -33,6 +33,7 @@ export const GOAL_SUGGESTIONS = [
   "Mejorar gramatica para el trabajo",
   "Aprobar un examen en 3 meses",
   "Entender series y podcasts",
+  "Otra"
 ];
 
 export const DEFAULT_MODE: AssistantMode = "conversation";

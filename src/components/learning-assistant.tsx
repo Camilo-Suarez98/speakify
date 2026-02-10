@@ -116,10 +116,8 @@ export default function LearningAssistant() {
           <ProfileForm
             targetLanguage={targetLanguage}
             level={level}
-            goal={goal}
             onTargetLanguageChange={setTargetLanguage}
             onLevelChange={setLevel}
-            onGoalChange={setGoal}
           />
         </section>
 

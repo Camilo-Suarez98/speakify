@@ -21,7 +21,6 @@ export default function AssistantHeader({
   return (
     <header className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex max-w-2xl flex-col gap-6">
-        <ProjectName />
         <h1 className="text-balance text-4xl font-semibold text-slate-900 sm:text-5xl">
           Crea tu ruta de aprendizaje de idiomas con una IA cercana y efectiva.
         </h1>
