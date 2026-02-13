@@ -1,15 +1,35 @@
 import { NextResponse } from "next/server";
-import { authOptions } from "@/auth";
-import { getServerSession } from "next-auth/next";
 import type { AssistantPayload, AssistantError } from "@/types/assistant";
 import { fetchAssistantReply, assertOpenAIKey } from "@/services/openai";
+import { createSupabaseServerClient } from "@/lib/supabase-server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+function getBearerToken(request: Request) {
+  const authHeader = request.headers.get("authorization");
+  if (!authHeader) {
+    return null;
+  }
+
+  const [scheme, token] = authHeader.split(" ");
+  if (scheme?.toLowerCase() !== "bearer" || !token) {
+    return null;
+  }
+
+  return token;
+}
+
 export async function POST(request: Request) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) {
+  const token = getBearerToken(request);
+  if (!token) {
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  }
+
+  const supabase = createSupabaseServerClient();
+  const { data, error: userError } = await supabase.auth.getUser(token);
+
+  if (userError || !data.user) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 });
   }
 
@@ -27,6 +47,7 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
+
   try {
     const data = await fetchAssistantReply(payload);
     return NextResponse.json({
