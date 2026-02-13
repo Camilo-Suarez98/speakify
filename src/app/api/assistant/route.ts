@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import type { AssistantPayload, AssistantError } from "@/types/assistant";
 import { fetchAssistantReply, assertOpenAIKey } from "@/services/openai";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { authOptions } from "@/auth";
+import { getServerSession } from "next-auth/next";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,14 +24,20 @@ function getBearerToken(request: Request) {
 
 export async function POST(request: Request) {
   const token = getBearerToken(request);
-  if (!token) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+
+  let isAuthorized = false;
+  if (token) {
+    const supabase = createSupabaseServerClient();
+    const { data, error: userError } = await supabase.auth.getUser(token);
+    isAuthorized = !userError && Boolean(data.user);
   }
 
-  const supabase = createSupabaseServerClient();
-  const { data, error: userError } = await supabase.auth.getUser(token);
+  if (!isAuthorized) {
+    const session = await getServerSession(authOptions);
+    isAuthorized = Boolean(session?.user);
+  }
 
-  if (userError || !data.user) {
+  if (!isAuthorized) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 });
   }
 

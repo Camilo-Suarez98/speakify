@@ -2,9 +2,22 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { getSession } from "next-auth/react";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 type AuthMode = "login" | "register";
+
+function getAuthErrorMessage(message: string) {
+  if (message.toLowerCase().includes("invalid login credentials")) {
+    return "Usuario o contrasena incorrectos.";
+  }
+
+  if (message.toLowerCase().includes("email not confirmed")) {
+    return "Debes confirmar tu correo antes de iniciar sesion.";
+  }
+
+  return "No se pudo completar la autenticacion. Verifica tus datos e intenta de nuevo.";
+}
 
 export function EmailAuthForm() {
   const router = useRouter();
@@ -23,8 +36,11 @@ export function EmailAuthForm() {
     let active = true;
 
     async function checkSession() {
-      const { data } = await supabase.auth.getSession();
-      if (active && data.session) {
+      const [{ data }, nextAuthSession] = await Promise.all([
+        supabase.auth.getSession(),
+        getSession(),
+      ]);
+      if (active && (data.session || nextAuthSession)) {
         router.replace("/assistant");
       }
     }
@@ -59,7 +75,7 @@ export function EmailAuthForm() {
     setIsLoading(false);
 
     if (signInError) {
-      setError(signInError.message);
+      setError(getAuthErrorMessage(signInError.message));
       return;
     }
 
@@ -220,4 +236,4 @@ export function EmailAuthForm() {
       </form>
     </section>
   );
-}
+};

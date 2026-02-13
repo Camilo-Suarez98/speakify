@@ -9,16 +9,16 @@ export async function requestAssistantReply(
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session?.access_token) {
-    throw new Error("Debes iniciar sesion para usar el asistente.");
-  }
-
   const response = await fetch("/api/assistant", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${session.access_token}`,
-    },
+    headers: session?.access_token
+      ? {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        }
+      : {
+          "Content-Type": "application/json",
+        },
     body: JSON.stringify(payload),
   });
 

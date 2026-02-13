@@ -40,9 +40,7 @@ export const GoogleAuthButton = () => {
           fill="#EA4335"
         />
       </svg>
-      <span className="text-white">
-        Continue with Google
-      </span>
+      <span className="text-white">Continuar con Google</span>
     </button>
   );
 };

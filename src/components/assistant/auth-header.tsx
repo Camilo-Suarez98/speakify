@@ -2,20 +2,26 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { ProjectName } from "../ui/project-name";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 type AuthHeaderProps = {
   displayName: string;
+  provider: "supabase" | "nextauth";
 };
 
-export default function AuthHeader({ displayName }: AuthHeaderProps) {
+export default function AuthHeader({ displayName, provider }: AuthHeaderProps) {
   const router = useRouter();
   const supabase = getSupabaseBrowserClient();
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
+    if (provider === "nextauth") {
+      await signOut({ callbackUrl: "/" });
+      return;
+    }
     await supabase.auth.signOut();
     router.push("/");
     router.refresh();

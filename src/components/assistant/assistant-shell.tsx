@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { getSession } from "next-auth/react";
 import AuthHeader from "@/components/assistant/auth-header";
 import LearningAssistant from "@/components/learning-assistant";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 type UserState = {
   displayName: string;
+  provider: "supabase" | "nextauth";
 };
 
 export default function AssistantShell() {
@@ -20,25 +22,35 @@ export default function AssistantShell() {
     let active = true;
 
     async function loadUser() {
-      const { data } = await supabase.auth.getUser();
-      const authUser = data.user;
+      const [{ data }, nextAuthSession] = await Promise.all([
+        supabase.auth.getUser(),
+        getSession(),
+      ]);
+      const supabaseUser = data.user;
 
       if (!active) {
         return;
       }
 
-      if (!authUser) {
-        router.replace("/login");
+      if (supabaseUser) {
+        const displayName =
+          (supabaseUser.user_metadata.display_name as string | undefined) ??
+          supabaseUser.email ??
+          "Usuario";
+        setUser({ displayName, provider: "supabase" });
+        setIsLoading(false);
         return;
       }
 
-      const displayName =
-        (authUser.user_metadata.display_name as string | undefined) ??
-        authUser.email ??
-        "Usuario";
+      if (nextAuthSession?.user) {
+        const displayName =
+          nextAuthSession.user.name ?? nextAuthSession.user.email ?? "Usuario";
+        setUser({ displayName, provider: "nextauth" });
+        setIsLoading(false);
+        return;
+      }
 
-      setUser({ displayName });
-      setIsLoading(false);
+      router.replace("/login");
     }
 
     void loadUser();
@@ -60,7 +72,10 @@ export default function AssistantShell() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,#ecfeff,#f8fafc_45%,#ffffff)] text-slate-900">
-      <AuthHeader displayName={user?.displayName ?? "Usuario"} />
+      <AuthHeader
+        displayName={user?.displayName ?? "Usuario"}
+        provider={user?.provider ?? "supabase"}
+      />
       <main className="min-h-screen">
         <LearningAssistant />
       </main>

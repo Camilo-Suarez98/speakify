@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ProjectName } from "@/components/ui/project-name";
 import { EmailAuthForm } from "@/components/auth/email-auth-form";
+import { GoogleAuthButton } from "@/components/auth/google-auth-button";
 
 export default function LoginPage() {
   return (
@@ -18,6 +19,12 @@ export default function LoginPage() {
         </header>
 
         <EmailAuthForm />
+        <section className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-[radial-gradient(circle_at_top,#ecfeff,#f8fafc_45%,#ffffff)] p-8 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.6)]">
+          <p className="text-sm font-semibold text-slate-700">
+            O continua con Google
+          </p>
+          <GoogleAuthButton />
+        </section>
 
         <Link
           href="/"
