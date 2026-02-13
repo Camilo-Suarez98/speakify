@@ -187,7 +187,7 @@ export function EmailAuthForm() {
 
         <label className="flex flex-col gap-2">
           <span className="text-sm font-semibold text-slate-700">
-            Contrasena
+            Contraseña
           </span>
           <input
             id="password"
