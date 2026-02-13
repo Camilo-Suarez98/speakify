@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Speakify | Asistente de aprendizaje de idiomas",
+  title: "Sp3akify | Asistente de aprendizaje de idiomas",
   description:
     "Crea una ruta personalizada para aprender idiomas con una IA que adapta conversaciones, gramatica y ejercicios a tu nivel.",
   keywords: [
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
   },
   openGraph: {
-    title: "Speakify | Asistente de aprendizaje de idiomas",
+    title: "Sp3akify | Asistente de aprendizaje de idiomas",
     description:
       "Personaliza tu aprendizaje con conversaciones y ejercicios guiados por IA.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Speakify | Asistente de aprendizaje de idiomas",
+    title: "Sp3akify | Asistente de aprendizaje de idiomas",
     description:
       "Personaliza tu aprendizaje con conversaciones y ejercicios guiados por IA.",
   },

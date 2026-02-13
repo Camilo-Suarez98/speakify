@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
+import { ChooseLoginButton } from "../ui/choose-login-button";
 
 type AuthMode = "login" | "register";
 
@@ -127,32 +128,24 @@ export function EmailAuthForm() {
   return (
     <section className="flex flex-col gap-6 rounded-3xl border border-slate-200 bg-[radial-gradient(circle_at_top,#ecfeff,#f8fafc_45%,#ffffff)] p-8 shadow-[0_20px_60px_-35px_rgba(15,23,42,0.6)]">
       <div className="flex rounded-full bg-white p-1 ring-1 ring-slate-200">
-        <button
-          type="button"
+        <ChooseLoginButton
           onClick={() => {
             setMode("login");
             resetFeedback();
           }}
-          className={`flex-1 rounded-full px-4 py-2 text-sm font-semibold transition cursor-pointer ${mode === "login"
-            ? "bg-emerald-400 text-white"
-            : "text-slate-600 hover:text-slate-900"
-            }`}
+          active={mode === "login"}
         >
           Iniciar sesion
-        </button>
-        <button
-          type="button"
+        </ChooseLoginButton>
+        <ChooseLoginButton
           onClick={() => {
             setMode("register");
             resetFeedback();
           }}
-          className={`flex-1 cursor-pointer rounded-full px-4 py-2 text-sm font-semibold transition ${mode === "register"
-            ? "bg-emerald-400 text-white"
-            : "text-slate-600 hover:text-slate-900"
-            }`}
+          active={mode === "register"}
         >
           Crear usuario
-        </button>
+        </ChooseLoginButton>
       </div>
 
       <form
@@ -165,11 +158,13 @@ export function EmailAuthForm() {
               Nombre de usuario
             </span>
             <input
+              id="username"
               type="text"
+              name="username"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               placeholder="Tu nombre"
-              className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-400"
+              className="rounded-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-400"
               required
             />
           </label>
@@ -178,23 +173,30 @@ export function EmailAuthForm() {
         <label className="flex flex-col gap-2">
           <span className="text-sm font-semibold text-slate-700">Usuario</span>
           <input
+            id="email"
             type="email"
+            name="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="tu-correo@ejemplo.com"
-            className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-400"
+            className="rounded-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-400"
             autoComplete="email"
             required
           />
         </label>
 
         <label className="flex flex-col gap-2">
-          <span className="text-sm font-semibold text-slate-700">Contrasena</span>
+          <span className="text-sm font-semibold text-slate-700">
+            Contrasena
+          </span>
           <input
+            id="password"
             type="password"
+            name="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-400"
+            placeholder="Tu contraseña"
+            className="rounded-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-400"
             autoComplete={mode === "login" ? "current-password" : "new-password"}
             minLength={6}
             required
@@ -204,13 +206,16 @@ export function EmailAuthForm() {
         {mode === "register" ? (
           <label className="flex flex-col gap-2">
             <span className="text-sm font-semibold text-slate-700">
-              Confirmar contrasena
+              Confirmar contraseña
             </span>
             <input
+              id="confirmPassword"
               type="password"
+              name="confirmPassword"
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event.target.value)}
-              className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-400"
+              placeholder="Confirmar contraseña"
+              className="rounded-full border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-400"
               autoComplete="new-password"
               minLength={6}
               required
@@ -218,7 +223,6 @@ export function EmailAuthForm() {
           </label>
         ) : null}
 
-        {password !== confirmPassword && password.length > 0 && confirmPassword.length > 0 ? <p className="text-sm text-rose-600">Las contrasenas no coinciden.</p> : null}
         {error ? <p className="text-sm text-rose-600">{error}</p> : null}
         {message ? <p className="text-sm text-emerald-700">{message}</p> : null}
 

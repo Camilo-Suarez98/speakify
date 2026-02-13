@@ -1,7 +1,7 @@
 export const ProjectName = () => {
   return (
     <p className="text-base font-semibold uppercase tracking-[0.3em] text-emerald-400">
-      Speakify
+      Sp3akify
     </p>
   );
 };

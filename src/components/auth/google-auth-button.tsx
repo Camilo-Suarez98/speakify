@@ -19,7 +19,7 @@ export const GoogleAuthButton = () => {
   return (
     <button
       onClick={handleLogin}
-      className="w-full bg-emerald-400 text-white cursor-pointer relative py-2 text-base rounded-lg font-medium flex items-center justify-center gap-3 hover:bg-emerald-800 transition-all duration-300 group"
+      className="w-full bg-emerald-400 text-white cursor-pointer font-semibold text-sm relative py-3 px-6 rounded-full flex items-center justify-center gap-3 transition-all duration-300 group hover:bg-emerald-700"
       disabled={isLoading}
     >
       <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -40,7 +40,7 @@ export const GoogleAuthButton = () => {
           fill="#EA4335"
         />
       </svg>
-      <span className="text-white">Continuar con Google</span>
+      <span>Iniciar sesión con Google</span>
     </button>
   );
 };
