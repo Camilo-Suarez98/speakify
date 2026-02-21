@@ -32,3 +32,8 @@ export type AssistantError = {
   error: string;
   details?: string;
 };
+
+export type PronunciationFeedbackReply = {
+  transcript?: string;
+  reply?: string;
+};

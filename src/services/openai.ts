@@ -6,7 +6,9 @@ import type {
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY ?? "";
 const OPENAI_API_URL = "https://api.openai.com/v1/responses";
+const OPENAI_TRANSCRIPTIONS_URL = "https://api.openai.com/v1/audio/transcriptions";
 const MODEL = "gpt-4.1-mini";
+const TRANSCRIPTION_MODEL = "gpt-4o-mini-transcribe";
 
 const DEFAULTS: Required<Omit<AssistantPayload, "input">> = {
   mode: "conversation",
@@ -80,6 +82,90 @@ export async function fetchAssistantReply(
       input: [
         { role: "system", content: buildSystemPrompt(requiredPayload) },
         { role: "user", content: `Solicitud del usuario: ${requiredPayload.input}` },
+      ],
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText);
+  }
+
+  const data = (await response.json()) as OpenAIResponse;
+  const reply = extractOutputText(data);
+
+  return { reply: reply ?? "" };
+}
+
+export async function transcribeAudio(
+  audioBuffer: ArrayBuffer,
+  fileName: string,
+  mimeType: string
+): Promise<string> {
+  const audioBlob = new Blob([audioBuffer], { type: mimeType || "audio/webm" });
+  const formData = new FormData();
+  formData.set("model", TRANSCRIPTION_MODEL);
+  formData.set("file", audioBlob, fileName || "pronunciation.webm");
+
+  const response = await fetch(OPENAI_TRANSCRIPTIONS_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText);
+  }
+
+  const data = (await response.json()) as { text?: string };
+  return data.text?.trim() ?? "";
+}
+
+type PronunciationFeedbackInput = {
+  transcript: string;
+  expectedText?: string;
+  targetLanguage?: string;
+  level?: string;
+  goal?: string;
+};
+
+export async function fetchPronunciationFeedback(
+  payload: PronunciationFeedbackInput
+): Promise<AssistantReply> {
+  const targetLanguage = payload.targetLanguage ?? DEFAULTS.targetLanguage;
+  const level = payload.level ?? DEFAULTS.level;
+  const goal = payload.goal ?? DEFAULTS.goal;
+  const expectedText = payload.expectedText?.trim() ?? "";
+
+  const response = await fetch(OPENAI_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      input: [
+        {
+          role: "system",
+          content:
+            "Eres un coach de pronunciacion. Evalua con claridad y brevedad. " +
+            "Responde en espanol en este formato: " +
+            "1) Calificacion global (0-100), 2) Lo que estuvo bien, " +
+            "3) Correcciones puntuales por sonidos/silabas, 4) Ejercicio corto de repeticion.",
+        },
+        {
+          role: "user",
+          content:
+            `Idioma objetivo: ${targetLanguage}\n` +
+            `Nivel: ${level}\n` +
+            `Objetivo: ${goal}\n` +
+            `Texto esperado: ${expectedText || "No definido"}\n` +
+            `Transcripcion del usuario: ${payload.transcript}`,
+        },
       ],
     }),
   });

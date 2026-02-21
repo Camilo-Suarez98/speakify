@@ -13,7 +13,10 @@ import {
   INITIAL_ASSISTANT_MESSAGE,
   TECHNICAL_ISSUE_MESSAGE,
 } from "@/lib/assistant-copy";
-import { requestAssistantReply } from "@/services/assistant-client";
+import {
+  requestAssistantReply,
+  requestPronunciationFeedback,
+} from "@/services/assistant-client";
 import type { Message } from "@/types/assistant";
 import AssistantHeader from "@/components/assistant/assistant-header";
 import ModeSelector from "@/components/assistant/mode-selector";
@@ -42,7 +45,6 @@ export default function LearningAssistant() {
   );
 
   const canSend = input.trim().length > 0 && !isLoading;
-  console.log(canSend);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -90,6 +92,61 @@ export default function LearningAssistant() {
     }
   }
 
+  async function handlePronunciationSubmit(audioBlob: Blob, expectedText: string) {
+    if (isLoading) return;
+
+    setError(null);
+    setIsLoading(true);
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "user",
+        content: `Audio enviado para evaluar pronunciacion.${expectedText.trim() ? ` Frase objetivo: "${expectedText.trim()}".` : ""}`,
+      },
+    ]);
+
+    try {
+      const data = await requestPronunciationFeedback({
+        audioBlob,
+        expectedText,
+        targetLanguage,
+        level,
+        goal,
+      });
+
+      const transcript = data.transcript?.trim();
+      const feedback = data.reply?.trim();
+      const replyParts = [
+        transcript ? `Transcripcion detectada: "${transcript}"` : null,
+        feedback && feedback.length > 0 ? feedback : FALLBACK_ASSISTANT_MESSAGE,
+      ].filter(Boolean);
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: replyParts.join("\n\n"),
+        },
+      ]);
+    } catch (submitError) {
+      const message =
+        submitError instanceof Error
+          ? submitError.message
+          : "No se pudo evaluar la pronunciacion.";
+      setError(message);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: TECHNICAL_ISSUE_MESSAGE,
+        },
+      ]);
+      throw submitError;
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <section className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 pb-24 pt-16 lg:px-12">
       <AssistantHeader
@@ -129,6 +186,7 @@ export default function LearningAssistant() {
           canSend={canSend}
           onInputChange={setInput}
           onSubmit={handleSubmit}
+          onPronunciationSubmit={handlePronunciationSubmit}
         />
       </div>
 
