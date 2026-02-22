@@ -201,7 +201,7 @@ export default function ChatPanel({
             type="button"
             onClick={isRecording ? stopRecording : startRecording}
             disabled={!supportsRecording || isLoading || isSubmittingAudio}
-            className="inline-flex items-center justify-center rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="inline-flex items-center justify-center cursor-pointer rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
           >
             {isRecording ? "Detener grabacion" : "Grabar voz"}
           </button>
@@ -209,7 +209,7 @@ export default function ChatPanel({
             type="button"
             onClick={submitPronunciation}
             disabled={!audioBlob || isLoading || isSubmittingAudio}
-            className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="inline-flex items-center justify-center cursor-pointer rounded-full bg-emerald-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-slate-300"
           >
             {isSubmittingAudio ? "Enviando audio..." : "Calificar pronunciacion"}
           </button>
@@ -231,4 +231,4 @@ export default function ChatPanel({
       </div>
     </section>
   );
-}
+};
