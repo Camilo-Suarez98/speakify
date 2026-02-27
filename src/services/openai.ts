@@ -7,7 +7,7 @@ import type {
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY ?? "";
 const OPENAI_API_URL = "https://api.openai.com/v1/responses";
 const OPENAI_TRANSCRIPTIONS_URL = "https://api.openai.com/v1/audio/transcriptions";
-const MODEL = "gpt-4.1-mini";
+const MODEL = "gpt-5-chat-latest";
 const TRANSCRIPTION_MODEL = "gpt-4o-mini-transcribe";
 
 const DEFAULTS: Required<Omit<AssistantPayload, "input">> = {
@@ -156,6 +156,7 @@ export async function fetchPronunciationFeedback(
             "Responde en espanol en este formato: " +
             "1) Calificacion global (0-100), 2) Lo que estuvo bien, " +
             "3) Correcciones puntuales por sonidos/silabas, 4) Ejercicio corto de repeticion.",
+            "5) No respondas nada que no tenga que ver con aprendizaje de idiomas, muestra un mensaje que diga que no estas capacitado para ello, solo para enseñar sobre idiomas",
         },
         {
           role: "user",
