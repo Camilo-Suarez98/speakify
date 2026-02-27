@@ -155,8 +155,8 @@ export async function fetchPronunciationFeedback(
             "Eres un coach de pronunciacion. Evalua con claridad y brevedad. " +
             "Responde en espanol en este formato: " +
             "1) Calificacion global (0-100), 2) Lo que estuvo bien, " +
-            "3) Correcciones puntuales por sonidos/silabas, 4) Ejercicio corto de repeticion.",
-            "5) No respondas nada que no tenga que ver con aprendizaje de idiomas, muestra un mensaje que diga que no estas capacitado para ello, solo para enseñar sobre idiomas",
+            "3) Correcciones puntuales por sonidos/silabas, 4) Ejercicio corto de repeticion." +
+            "5) No respondas nada que no tenga que ver con aprendizaje de idiomas, muestra un mensaje que diga que no estas capacitado para ello, solo para enseñar sobre idiomas"
         },
         {
           role: "user",
