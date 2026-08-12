@@ -7,7 +7,7 @@ import type {
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY ?? "";
 const OPENAI_API_URL = "https://api.openai.com/v1/responses";
 const OPENAI_TRANSCRIPTIONS_URL = "https://api.openai.com/v1/audio/transcriptions";
-const MODEL = "gpt-5-chat-latest";
+const MODEL = "gpt-5.6-luna";
 const TRANSCRIPTION_MODEL = "gpt-4o-mini-transcribe";
 
 const DEFAULTS: Required<Omit<AssistantPayload, "input">> = {
